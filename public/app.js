@@ -642,12 +642,41 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// ── Random Mind generator pause/resume (POST /api/generator) ────────────────
+const genToggle = $("#genToggle");
+let genRunning = true;
+const PAUSE_SVG = '<svg viewBox="0 0 24 24" class="ic"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+const PLAY_SVG = '<svg viewBox="0 0 24 24" class="ic ic--fill"><path d="M7 4l13 8-13 8z"/></svg>';
+function updateGenBtn() {
+  genToggle.innerHTML = genRunning ? PAUSE_SVG : PLAY_SVG;
+  genToggle.title = genRunning ? "Pause generating" : "Resume generating";
+  genToggle.setAttribute("aria-label", genToggle.title);
+}
+genToggle.onclick = async () => {
+  genRunning = !genRunning;
+  updateGenBtn();
+  toast(genRunning ? "Random Mind resumed" : "Random Mind paused");
+  try {
+    await fetch("/api/generator", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ running: genRunning }),
+    });
+  } catch { /* will re-sync on next feed poll */ }
+};
+
 // ── Random Mind live feed (GET /api/context) ────────────────────────────────
 async function refreshFeed() {
   try {
     const res = await fetch("/api/context");
     const data = await res.json();
-    feedCountEl.textContent = `${data.count} dream${data.count === 1 ? "" : "s"}`;
+    if (typeof data.running === "boolean" && data.running !== genRunning) {
+      genRunning = data.running;
+      updateGenBtn();
+    }
+    feedCountEl.textContent = genRunning
+      ? `${data.count} dream${data.count === 1 ? "" : "s"}`
+      : "paused";
     feedEl.innerHTML = "";
     if (!data.items.length) {
       feedEl.appendChild(el("div", "mind__empty", "The Random Mind is warming up…"));
@@ -682,6 +711,7 @@ function boot() {
   if (!conversations.length) newConversation(false);
   if (!current()) currentId = conversations[0]?.id || null;
   renderAll();
+  updateGenBtn();
   loadModel();
   refreshFeed();
   setInterval(refreshFeed, 5000);

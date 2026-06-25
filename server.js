@@ -88,6 +88,7 @@ app.use(express.static(path.join(__dirname, "public")));
 /** @type {{ id:number, kind:string, topic:string, text:string, ts:number }[]} */
 const contextStore = [];
 let nextId = 1;
+let generatorRunning = true; // toggled from the UI (Random Mind pause/resume)
 
 function addToContext(kind, topic, text) {
   contextStore.push({ id: nextId++, kind, topic, text, ts: Date.now() });
@@ -126,6 +127,7 @@ const FORMATS = [
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 async function generateOnce() {
+  if (!generatorRunning) return; // paused from the UI
   const topic = pick(TOPICS);
   const format = pick(FORMATS);
   try {
@@ -148,7 +150,8 @@ async function generateOnce() {
       ],
     });
     const text = (res.choices?.[0]?.message?.content || "").trim();
-    if (text) {
+    // Drop the result if generation was paused while this request was in flight.
+    if (text && generatorRunning) {
       addToContext(format, topic, text);
       console.log(`  ✦ generated ${format} about "${topic}" (${text.length} chars)`);
     }
@@ -219,8 +222,15 @@ app.post("/api/chat", async (req, res) => {
 app.get("/api/context", (_req, res) => {
   res.json({
     count: contextStore.length,
+    running: generatorRunning,
     items: contextStore.slice(-CONTEXT_ITEMS_FOR_CHAT).reverse(),
   });
+});
+
+// Pause / resume LLM #1 from the UI.
+app.post("/api/generator", (req, res) => {
+  if (typeof req.body?.running === "boolean") generatorRunning = req.body.running;
+  res.json({ running: generatorRunning });
 });
 
 app.get("/api/health", (_req, res) => res.json({ ok: true, model: MODEL }));

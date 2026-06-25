@@ -164,11 +164,16 @@
       <!-- ───────────────────────── Random Mind panel ───────────────────────── -->
       <aside class="mind" id="mind" aria-label="Random Mind feed">
         <div class="mind__head">
-          <div>
+          <div class="mind__head-main">
             <h2 class="mind__title">🧠 Random Mind</h2>
             <p class="mind__sub">LLM&nbsp;#1 generates this nonstop — it becomes the bot's context.</p>
           </div>
-          <span class="pill" id="feedCount">0 dreams</span>
+          <div class="mind__head-actions">
+            <button class="icon-btn" id="genToggle" title="Pause generating" aria-label="Pause generating">
+              <svg viewBox="0 0 24 24" class="ic"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+            </button>
+            <span class="pill" id="feedCount">0 dreams</span>
+          </div>
         </div>
         <div class="mind__list" id="feed"></div>
       </aside>

@@ -50,7 +50,8 @@ live feed of whatever LLM #1 is dreaming up (which is what the bot is being fed)
 ## Endpoints
 
 - `POST /api/chat` `{ message }` → `{ reply, temperatureVariable, apiTemperature, contextItemsUsed }`
-- `GET /api/context` → recent generated fragments (powers the live feed)
+- `GET /api/context` → `{ count, running, items }` — recent generated fragments (powers the live feed)
+- `POST /api/generator` `{ running }` → `{ running }` — pause/resume LLM #1
 - `GET /api/health`
 
 ## Config (optional, via `.env`)
