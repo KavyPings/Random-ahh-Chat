@@ -1,0 +1,17 @@
+{
+  "name": "random-ahh-chat",
+  "version": "1.0.0",
+  "description": "A double-LLM system: one LLM endlessly generates random creative content that becomes the context for a second LLM (the chatbot), which answers users at a randomly generated temperature.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "aws4": "^1.13.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "openai": "^4.104.0"
+  }
+}

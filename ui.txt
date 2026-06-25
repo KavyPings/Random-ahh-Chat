@@ -1,0 +1,548 @@
+# AI Assistant Web Application - UI Design Specification
+
+## Version
+
+1.0
+
+## Goal
+
+Design a modern, fast, responsive conversational AI interface optimized for productivity, long conversations, document analysis, coding, and multimodal interactions.
+
+---
+
+# Design Principles
+
+* Minimal visual noise
+* Content-first layout
+* Fast interactions
+* Accessible
+* Keyboard friendly
+* Responsive
+* Smooth animations
+* Large conversation support
+
+---
+
+# Layout
+
+Desktop
+
+```
+-----------------------------------------------------
+| Sidebar |            Header                       |
+|         |-----------------------------------------|
+|         |                                         |
+|         |                                         |
+|         |      Conversation Area                  |
+|         |                                         |
+|         |                                         |
+|         |                                         |
+|         |-----------------------------------------|
+|         | Composer / Prompt Input                 |
+-----------------------------------------------------
+```
+
+Mobile
+
+```
+----------------------
+Header
+----------------------
+
+Conversation
+
+Conversation
+
+Conversation
+
+----------------------
+Prompt Input
+----------------------
+```
+
+---
+
+# Sidebar
+
+Width
+
+* Expanded: 280px
+* Collapsed: 72px
+
+Contains
+
+Top
+
+* Logo
+* New Chat button
+
+Middle
+
+Conversation history
+
+Each item includes
+
+* Chat title
+* Timestamp
+* Active state
+* Hover menu
+
+  * Rename
+  * Delete
+  * Archive
+  * Share
+
+Bottom
+
+* User profile
+* Theme switch
+* Settings
+* Help
+
+---
+
+# Header
+
+Contains
+
+Left
+
+Current conversation title
+
+Center
+
+Optional model selector
+
+Right
+
+* Search
+* Notifications
+* Profile
+
+Height
+
+64px
+
+Sticky
+
+Yes
+
+---
+
+# Conversation Area
+
+Centered layout
+
+Max width
+
+900px
+
+Padding
+
+32px desktop
+
+16px mobile
+
+Message spacing
+
+24px
+
+---
+
+# Message Components
+
+User Message
+
+* Right aligned
+* Rounded container
+* Subtle accent color
+
+Assistant Message
+
+* Left aligned
+* Rich markdown
+* Code highlighting
+* Tables
+* Lists
+* Images
+* Citations
+* Math
+* Charts
+
+System Messages
+
+Centered
+
+Muted appearance
+
+---
+
+# Message Actions
+
+Appear on hover
+
+Assistant
+
+* Copy
+* Regenerate
+* Like
+* Dislike
+* Share
+* Edit prompt
+* Speak
+
+User
+
+* Edit
+* Delete
+* Copy
+
+---
+
+# Code Block
+
+Features
+
+* Syntax highlighting
+* Copy button
+* Language badge
+* Expand
+* Collapse
+* Line numbers
+* Wrap toggle
+
+---
+
+# Prompt Composer
+
+Sticky bottom
+
+Contains
+
+Large multiline input
+
+Placeholder
+
+"Ask anything..."
+
+Toolbar
+
+* Upload
+* Voice input
+* Image upload
+* Attach document
+* Web search toggle
+* Tools
+
+Right side
+
+Send button
+
+Behavior
+
+Enter
+
+Send
+
+Shift + Enter
+
+New line
+
+Auto expand
+
+1–12 lines
+
+---
+
+# Attachments
+
+Supported
+
+* PDF
+* Images
+* Word
+* Excel
+* CSV
+* Text
+
+Display
+
+Attachment chips above composer
+
+---
+
+# Loading State
+
+Assistant
+
+Animated typing indicator
+
+Streaming text
+
+Token-by-token rendering
+
+Cancel generation button
+
+---
+
+# Welcome Screen
+
+Center aligned
+
+Contains
+
+Greeting
+
+Suggested prompts
+
+Example categories
+
+* Coding
+* Writing
+* Research
+* Brainstorming
+* Learning
+
+---
+
+# Search
+
+Global conversation search
+
+Supports
+
+* Full text
+* Filters
+* Date
+* Attachments
+
+---
+
+# Themes
+
+Light
+
+Dark
+
+System
+
+High contrast
+
+---
+
+# Typography
+
+Font
+
+Inter
+
+Scale
+
+Display
+
+32px
+
+Heading
+
+24px
+
+Body
+
+16px
+
+Caption
+
+13px
+
+Code
+
+14px monospace
+
+---
+
+# Colors
+
+Primary
+
+#4F46E5
+
+Surface
+
+#FFFFFF
+
+Background
+
+#F7F8FA
+
+Text
+
+#1F2937
+
+Success
+
+#22C55E
+
+Warning
+
+#F59E0B
+
+Error
+
+#EF4444
+
+Dark Theme
+
+Background
+
+#111827
+
+Surface
+
+#1F2937
+
+Text
+
+#F9FAFB
+
+Accent
+
+#6366F1
+
+---
+
+# Components
+
+Buttons
+
+Primary
+
+Secondary
+
+Ghost
+
+Icon
+
+Cards
+
+Dialogs
+
+Dropdowns
+
+Context menus
+
+Tooltips
+
+Toasts
+
+Progress indicators
+
+---
+
+# Keyboard Shortcuts
+
+Ctrl/Cmd + K
+
+Search
+
+Ctrl/Cmd + N
+
+New chat
+
+Esc
+
+Close dialog
+
+Up
+
+Edit last prompt
+
+Tab
+
+Navigate controls
+
+---
+
+# Accessibility
+
+WCAG AA compliant
+
+Keyboard navigation
+
+Visible focus states
+
+ARIA labels
+
+Screen reader support
+
+Color contrast >= 4.5:1
+
+---
+
+# Responsive Breakpoints
+
+Mobile
+
+<640px
+
+Tablet
+
+640–1024px
+
+Desktop
+
+> 1024px
+
+---
+
+# Motion
+
+Hover
+
+150ms
+
+Open/Close
+
+250ms
+
+Page transitions
+
+200ms
+
+Loading shimmer
+
+Infinite
+
+---
+
+# Performance Targets
+
+First render
+
+<1 second
+
+Message streaming latency
+
+<100ms
+
+60 FPS animations
+
+Virtualized message list for long conversations
+
+---
+
+# Future Features
+
+* Multiple AI models
+* Shared conversations
+* Collaborative editing
+* Plugins
+* AI agents
+* Canvas mode
+* Voice conversations
+* Video understanding
+* Workspace folders
+* Custom assistants
+* API playground
+* Conversation branching
+* Memory management
+* Team workspaces
